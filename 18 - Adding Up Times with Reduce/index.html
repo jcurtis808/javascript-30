@@ -182,6 +182,24 @@
     </li>
   </ul>
 <script>
+  const times = Array.from(document.querySelectorAll('[data-time]'));  //creating an Array from all the li with data-time attribute
+  const totalSeconds = times
+  .map(time => time.dataset.time.split(':')) //mapping through array to split time value into separate minutes and seconds
+  .reduce((acc, value) => {
+    let seconds = Number(value[0] * 60) + Number(value[1]); //calculating total seconds per value in array
+    return acc + seconds; //adding seconds of entry to total acc seconds
+  }, 0);
+  
+
+  //converting total seconds into hours, minutes and seconds
+  let secondsLeft = totalSeconds;
+  const hours = Math.floor(secondsLeft / 3600);
+  secondsLeft = secondsLeft % 3600;
+  const mins = Math.floor(secondsLeft / 60);
+  secondsLeft = secondsLeft % 60;
+  console.log(`Total video time = ${hours}:${mins}:${secondsLeft}`);
+
+
 </script>
 </body>
 </html>

@@ -43,7 +43,7 @@
   </div>
 
   <script>
-    function debounce(func, wait = 20, immediate = true) {
+    function debounce(func, wait = 10, immediate = true) {
       var timeout;
       return function() {
         var context = this, args = arguments;
@@ -57,6 +57,26 @@
         if (callNow) func.apply(context, args);
       };
     }
+
+    const images = document.querySelectorAll('img');
+
+    function slide(e) {
+      images.forEach(image => {
+        let windowBottom = window.pageYOffset + window.innerHeight;  //variable for how many pixels from the top of page the bottom of screen is
+        let imageSize = image.offsetTop + (image.height / 2);  //variable for exact pixel on Y axis that half of any image is shown on page
+        let isScrolledPast = (image.offsetTop + image.height) - 50;  //variable for exact pixels to mark when the image should slide out
+        if (windowBottom > imageSize) {
+          image.classList.add('active');
+        }
+        if (windowBottom < imageSize || windowBottom > isScrolledPast + window.innerHeight) {
+          image.classList.remove('active');
+        }
+      })
+    }
+
+
+    window.addEventListener('scroll', debounce(slide));
+
 
   </script>
 

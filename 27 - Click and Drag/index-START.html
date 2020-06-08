@@ -35,6 +35,36 @@
   </div>
 
 <script>
+  // const items = document.querySelectorAll('.item');
+  const container = document.querySelector('.items');
+  let x = 0;
+  let isClicked = false;
+
+  function drag(e) {
+    if (!isClicked) return;
+    if (x < 0) x = 0;
+    if (x > (3985 / 1.5)) x = (container.scrollLeft / 1.5);
+    x -= e.movementX;
+    container.scrollLeft = x * 1.5;
+    console.log(x);
+  }
+
+  function reset() {
+    isClicked = false;
+    container.classList.remove('active')
+    if (x < 0) x = 0;
+    if (x > (3985 / 1.5)) x = (container.scrollLeft / 1.5);
+  }
+
+  function active() {
+    isClicked = true;
+    container.classList.add('active');
+  }
+
+  container.addEventListener('mousedown', active);
+  container.addEventListener('mouseleave', reset);
+  container.addEventListener('mouseup', reset);
+  container.addEventListener('mousemove', drag);
 </script>
 
   </body>
